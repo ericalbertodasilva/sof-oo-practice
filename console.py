@@ -1,3 +1,15 @@
+from auth import AuthBankAccount
+import getpass
+
+class AuthBankAccountConsole:
+    
+    @staticmethod
+    def is_auth():
+        account_number_typed = input('Digite sua conta: ')
+        password_typed = getpass.getpass('Digite sua senha: ')
+
+        return AuthBankAccount.authenticate(account_number_typed, password_typed)
+
 class CashMachineConsole:
 
     @staticmethod
@@ -23,6 +35,7 @@ class CashMachineOperation:
 class ShowBalanceOperation:
     @staticmethod
     def do_operation():
+        print(AuthBankAccount.back_account_authenticad)
         print('Mostrar saldo')
 
 class  WithDrawOperation:
