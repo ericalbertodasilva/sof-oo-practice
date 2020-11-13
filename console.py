@@ -1,3 +1,4 @@
+from cash_machine import CashMachineWithDraw
 from auth import AuthBankAccount
 import getpass
 
@@ -42,6 +43,16 @@ class ShowBalanceOperation:
         print('Seu saldo é %s' % bank_account.value)
 
 class WithDrawOperation:
+    
     @staticmethod
     def do_operation():
-        print('Sacar dinheiro')
+        value_typed = input('Digite o valor a ser sacado: ')
+        value_int = int(value_typed)
+        bank_account = AuthBankAccount.bank_account_authenticated
+        cash_machine = CashMachineWithDraw.withdraw(bank_account, value_int)
+        if cash_machine.value_remaining != 0:
+            print('O caixa não tem cédulas disponíveis para este valor')
+        else:
+            print('Pegue as notas:')
+            print(cash_machine.money_slips_user)
+            print(vars(bank_account))
