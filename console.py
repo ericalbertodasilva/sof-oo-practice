@@ -35,12 +35,13 @@ class CashMachineOperation:
             WithDrawOperation.do_operation();
 
 class ShowBalanceOperation:
+    
     @staticmethod
     def do_operation():
-        print(AuthBankAccount.back_account_authenticad)
-        print('Mostrar saldo')
+        bank_account = AuthBankAccount.bank_account_authenticated
+        print('Seu saldo é %s' % bank_account.value)
 
-class  WithDrawOperation:
+class WithDrawOperation:
     @staticmethod
     def do_operation():
         print('Sacar dinheiro')

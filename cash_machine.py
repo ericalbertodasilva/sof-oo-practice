@@ -5,6 +5,22 @@ class BankAccount:
         self.password = password
         self.value = value
         self.admin = admin
+    
+    def check_account_number(self, account_number):
+        return account_number == self.account_number
+
+    def check_password(self, password):
+        return password == self.password
+
+    def balance_debit(self, value):
+        self.value -= value
+
+class CashMachine:
+    
+    def __init__(self, money_slips):
+        self.money_slips = money_slips
+        self.money_slips_user = {}
+        self.value_remaining = 0
 
 accounts_list = [
     BankAccount('0001-02', 'Fulano da Silva', '123456', 100, False),
