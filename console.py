@@ -13,23 +13,25 @@ class AuthBankAccountConsole:
 class CashMachineConsole:
 
     @staticmethod
-    def get_menu_options_typed():
-        print("1 - Saldo")
-        print("2 - Saque")
+    def __get_menu_options_typed():
+        print("%s - Saldo" % CashMachineOperation.OPERATION_SHOW_BALANCE)
+        print("%s - Saque" % CashMachineOperation.OPERATION_WITHDRAW)
         return input('Escolha uma das opções acima: ')
 
     @staticmethod
     def call_operation():
-        option_typed = CashMachineConsole.get_menu_options_typed()
+        option_typed = CashMachineConsole.__get_menu_options_typed()
         CashMachineOperation.do_operation(option_typed)
 
 class CashMachineOperation:
-    
+    OPERATION_SHOW_BALANCE = '1'
+    OPERATION_WITHDRAW = '2'
+
     @staticmethod
     def do_operation(option):
-        if option == '1':
+        if option == CashMachineOperation.OPERATION_SHOW_BALANCE:
             ShowBalanceOperation.do_operation();
-        elif option == '2':
+        elif option == CashMachineOperation.OPERATION_WITHDRAW:
             WithDrawOperation.do_operation();
 
 class ShowBalanceOperation:
