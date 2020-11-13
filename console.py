@@ -1,9 +1,11 @@
-from cash_machine import CashMachineInsertMoneyBill, CashMachineWithDraw
-from auth import AuthBankAccount
 import getpass
 
+from auth import AuthBankAccount
+from cash_machine import CashMachineWithDraw, CashMachineInsertMoneyBill
+
+
 class AuthBankAccountConsole:
-    
+
     @staticmethod
     def is_auth():
         account_number_typed = input('Digite sua conta: ')
@@ -11,7 +13,13 @@ class AuthBankAccountConsole:
 
         return AuthBankAccount.authenticate(account_number_typed, password_typed)
 
+
 class CashMachineConsole:
+
+    @staticmethod
+    def call_operation():
+        option_typed = CashMachineConsole.__get_menu_options_typed()
+        CashMachineOperation.do_operation(option_typed)
 
     @staticmethod
     def __get_menu_options_typed():
@@ -19,13 +27,9 @@ class CashMachineConsole:
         print("%s - Saque" % CashMachineOperation.OPERATION_WITHDRAW)
         bank_account = AuthBankAccount.bank_account_authenticated
         if bank_account.admin:
-            print("%s - Inserir celulas" % CashMachineOperation.OPERATION_INSERT_MONEY_BILL)
+            print('%s - Inserir cédulas' % CashMachineOperation.OPERATION_INSERT_MONEY_BILL)
         return input('Escolha uma das opções acima: ')
 
-    @staticmethod
-    def call_operation():
-        option_typed = CashMachineConsole.__get_menu_options_typed()
-        CashMachineOperation.do_operation(option_typed)
 
 class CashMachineOperation:
     OPERATION_SHOW_BALANCE = '1'
@@ -36,22 +40,23 @@ class CashMachineOperation:
     def do_operation(option):
         bank_account = AuthBankAccount.bank_account_authenticated
         if option == CashMachineOperation.OPERATION_SHOW_BALANCE:
-            ShowBalanceOperation.do_operation();
+            ShowBalanceOperation.do_operation()
         elif option == CashMachineOperation.OPERATION_WITHDRAW:
-            WithDrawOperation.do_operation();
-        elif  option == CashMachineOperation.OPERATION_INSERT_MONEY_BILL and bank_account.admin:
-            InsertMoneyBillOperation.do_operation();
+            WithDrawOperation.do_operation()
+        elif option == CashMachineOperation.OPERATION_INSERT_MONEY_BILL and bank_account.admin:
+            InsertMoneyBillOperation.do_operation()
 
 
 class ShowBalanceOperation:
-    
+
     @staticmethod
     def do_operation():
         bank_account = AuthBankAccount.bank_account_authenticated
         print('Seu saldo é %s' % bank_account.value)
 
+
 class WithDrawOperation:
-    
+
     @staticmethod
     def do_operation():
         value_typed = input('Digite o valor a ser sacado: ')
@@ -65,8 +70,9 @@ class WithDrawOperation:
             print(cash_machine.money_slips_user)
             print(vars(bank_account))
 
+
 class InsertMoneyBillOperation:
-    
+
     @staticmethod
     def do_operation():
         amount_typed = input('Digite a quantidade de cédulas: ')
